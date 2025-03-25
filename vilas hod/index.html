@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Brother!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(45deg, #FF416C, #FF4B2B, #7F00FF, #E100FF);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            color: #FFFFFF;
+            font-size: 3.8em;
+            margin: 20px 0;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3),
+                         0 0 20px rgba(255,255,255,0.4);
+            animation: bounce 2s infinite;
+            background: linear-gradient(90deg, #FFD700, #FFA500, #FF69B4);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 2px;
+        }
+
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            padding: 20px;
+        }
+
+        .photo-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            aspect-ratio: 1;
+            border: 3px solid transparent;
+            background-clip: padding-box;
+        }
+
+        .photo-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border-color: rgba(255,255,255,0.5);
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .photo-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .message {
+            background: rgba(255,255,255,0.95);
+            padding: 25px;
+            border-radius: 20px;
+            margin: 20px 0;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            transform: translateY(0);
+            transition: all 0.4s ease;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .message:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,0.9));
+        }
+
+        .message h2 {
+            color: #FF416C;
+            margin-bottom: 10px;
+            font-size: 2em;
+        }
+
+        .message p {
+            color: #7F00FF;
+            font-size: 1.2em;
+            line-height: 1.6;
+        }
+
+        .photo-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(127, 0, 255, 0.8), rgba(255, 65, 108, 0.8));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .photo-card:hover .photo-overlay {
+            opacity: 1;
+        }
+
+        .wish-text {
+            font-size: 1.3em;
+            line-height: 1.6;
+            padding: 25px;
+            background: rgba(0,0,0,0.6);
+            border-radius: 15px;
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+            border: 2px solid rgba(255,255,255,0.3);
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+
+        .photo-card:hover .wish-text {
+            transform: translateY(0);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .like-button {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            background: rgba(255,255,255,0.95);
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s ease;
+            z-index: 2;
+            font-size: 1.3em;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .like-button:hover {
+            transform: scale(1.2);
+            background: linear-gradient(135deg, #FF416C, #FF4B2B);
+            color: white;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .cake {
+            font-size: 120px;
+            margin: 20px 0;
+            animation: rotate 2s infinite;
+            text-shadow: 0 0 20px rgba(255,255,255,0.5);
+            background: linear-gradient(45deg, #FFD700, #FFA500, #FF69B4);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.1); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            position: absolute;
+            animation: fall 3s linear forwards;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-100vh); }
+            100% { transform: translateY(100vh); }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90vh;
+            position: relative;
+        }
+
+        .modal img {
+            max-width: 100%;
+            max-height: 90vh;
+            border-radius: 10px;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Happy Birthday Brother! 🎉</h1>
+        <div class="cake">🎂</div>
+        <div class="message">
+            <h2>To My Amazing Brother</h2>
+            <p>On this special day, I wish you endless joy, success, and adventures ahead!</p>
+        </div>
+        <div class="photo-gallery">
+            <div class="photo-card">
+                <img src="vilas1.png" alt="Sunset Bike Photo">
+                <button class="like-button">❤️</button>
+                <div class="photo-overlay">
+                    <p class="wish-text">May your journey ahead be as beautiful as this sunset! Keep riding towards your dreams! 🏍️</p>
+                </div>
+            </div>
+            <div class="photo-card">
+                <img src="vilas2.png" alt="Beach Photo">
+                <button class="like-button">❤️</button>
+                <div class="photo-overlay">
+                    <p class="wish-text">Like the waves that never stop, may your spirit stay forever young and adventurous! 🌊</p>
+                </div>
+            </div>
+            <div class="photo-card">
+                <img src="vilas3.png" alt="Professional Look">
+                <button class="like-button">❤️</button>
+                <div class="photo-overlay">
+                    <p class="wish-text">Stay confident and keep achieving new heights in your career! You make us proud! 👔</p>
+                </div>
+            </div>
+            <div class="photo-card">
+                <img src="vilas4.png" alt="Casual Style">
+                <button class="like-button">❤️</button>
+                <div class="photo-overlay">
+                    <p class="wish-text">Your style and grace inspire us all! Keep being uniquely you! 🌟</p>
+                </div>
+            </div>
+            <div class="photo-card">
+                <img src="vilas5.png" alt="Office Look">
+                <button class="like-button">❤️</button>
+                <div class="photo-overlay">
+                    <p class="wish-text">Success looks good on you! May you achieve all your professional goals! 💼</p>
+                </div>
+            </div>
+            <div class="photo-card">
+                <img src="vilas6.png" alt="Street Style">
+                <button class="like-button">❤️</button>
+                <div class="photo-overlay">
+                    <p class="wish-text">Stay cool, stay stylish, and keep spreading smiles wherever you go! 😊</p>
+                </div>
+            </div>
+            <div class="photo-card">
+                <img src="vilas7.png" alt="Night Bike">
+                <button class="like-button">❤️</button>
+                <div class="photo-overlay">
+                    <p class="wish-text">May your life be filled with thrilling adventures and amazing rides! 🏍️</p>
+                </div>
+            </div>
+            <div class="photo-card">
+                <img src="vilas8.png" alt="Chai Time">
+                <button class="like-button">❤️</button>
+                <div class="photo-overlay">
+                    <p class="wish-text">Here's to more chai breaks and meaningful conversations! ☕</p>
+                </div>
+            </div>
+            <div class="photo-card">
+                <img src="vilas9.png" alt="Casual Walk">
+                <button class="like-button">❤️</button>
+                <div class="photo-overlay">
+                    <p class="wish-text">Keep walking with confidence towards your dreams! Your journey inspires us! 👣</p>
+                </div>
+            </div>
+            <div class="photo-card">
+                <img src="vilas10.png" alt="Traditional Look">
+                <button class="like-button">❤️</button>
+                <div class="photo-overlay">
+                    <p class="wish-text">Stay blessed and keep spreading your charm! Happy Birthday! 🎉</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="photoModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <img src="" alt="Enlarged Photo">
+        </div>
+    </div>
+
+    <script>
+        // Like button functionality
+        document.querySelectorAll('.like-button').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.stopPropagation();
+                button.style.transform = 'scale(1.2)';
+                button.style.background = '#ff6b6b';
+                button.style.color = 'white';
+                setTimeout(() => {
+                    button.style.transform = 'scale(1)';
+                }, 200);
+            });
+        });
+
+        // Create confetti effect
+        function createConfetti() {
+            const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96e6a1', '#ffbe0b', '#ff006e'];
+            const confetti = document.createElement('div');
+            confetti.style.position = 'fixed';
+            confetti.style.width = '10px';
+            confetti.style.height = '10px';
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.top = '-10px';
+            confetti.style.borderRadius = '50%';
+            confetti.style.animation = 'fall 3s linear forwards';
+            document.body.appendChild(confetti);
+
+            setTimeout(() => {
+                confetti.remove();
+            }, 3000);
+        }
+
+        // Create confetti animation
+        setInterval(createConfetti, 100);
+
+        // Add falling confetti animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fall {
+                0% { transform: translateY(-10px) rotate(0deg); }
+                100% { transform: translateY(100vh) rotate(360deg); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Modal functionality
+        const modal = document.getElementById('photoModal');
+        const modalImg = modal.querySelector('img');
+        const closeModal = document.querySelector('.close-modal');
+
+        document.querySelectorAll('.photo-card').forEach(card => {
+            const img = card.querySelector('img');
+            const likeButton = card.querySelector('.like-button');
+            
+            // Open photo in new tab
+            card.addEventListener('click', (e) => {
+                if (e.target !== likeButton) {
+                    window.open(img.src, '_blank');
+                }
+            });
+
+            // Show modal on double click
+            card.addEventListener('dblclick', () => {
+                modal.style.display = 'flex';
+                modalImg.src = img.src;
+            });
+
+            // Like button functionality
+            likeButton.addEventListener('click', (e) => {
+                e.stopPropagation();
+                likeButton.style.transform = 'scale(1.2)';
+                likeButton.style.background = '#ff6b6b';
+                likeButton.style.color = 'white';
+                setTimeout(() => {
+                    likeButton.style.transform = 'scale(1)';
+                }, 200);
+            });
+        });
+
+        // Close modal
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Add hover effect to message
+        const message = document.querySelector('.message');
+        message.addEventListener('mouseover', () => {
+            message.style.transform = 'translateY(-5px)';
+        });
+
+        message.addEventListener('mouseout', () => {
+            message.style.transform = 'translateY(0)';
+        });
+    </script>
+</body>
+</html> 
